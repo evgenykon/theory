@@ -1,0 +1,7 @@
+# system
+.DS_Store
+*.log
+
+# python (graph generators use a temp venv outside the repo)
+__pycache__/
+*.pyc
