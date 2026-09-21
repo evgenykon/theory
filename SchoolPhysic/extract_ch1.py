@@ -19,6 +19,8 @@ FIGURES = [
     ("1_31_friction", 60, "Рис. 1.31"),         # friction
     ("1_39_pressure", 70, "Рис. 1.39"),         # archimedes cylinder
     ("1_51_lever", 87, "Рис. 1.51"),            # lever
+    ("1_2_kinematics", 40, "Рис. 1.15"),        # horizontal throw
+    ("1_36_hydrostatic", 67, "Рис. 1.36"),      # hydrostatic pressure
 ]
 
 
@@ -55,8 +57,10 @@ def crop_figure(name, pno, caption, margin_top=6, margin_x=10):
             keep.append(r)
     minx = min(r.x0 for r in keep) - margin_x
     miny = min(r.y0 for r in keep) - margin_top
-    maxx = max(r.x1 for r in keep) + margin_x
-    maxy = cap.y1 + 6
+    maxx = max(r.x1 for r in keep) + 18
+    # bottom bound: just above the caption so the label is not included, but keep
+    # enough room for axis labels near the bottom of the figure
+    maxy = cap.y0 - 2
     clip = pymupdf.Rect(minx, miny, maxx, maxy)
     pix = page.get_pixmap(matrix=pymupdf.Matrix(3, 3), clip=clip)
     path = os.path.join(OUT, name + ".png")
